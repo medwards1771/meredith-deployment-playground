@@ -2,4 +2,3 @@ steps:
   - label: ":rocket: Deploy"
     command: bin/deploy.sh
     key: deploy
-    env: { GIT_SSH_COMMAND: "ssh -vvv" }
