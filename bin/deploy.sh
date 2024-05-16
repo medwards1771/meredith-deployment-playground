@@ -6,6 +6,7 @@
 # `o pipefail`	Ensure Bash pipelines (for example, cmd | othercmd) return a non-zero status if any of the commands fail
 set -euxo pipefail
 
+# Set SSH_AUTH_SOCK so that ssh can find the buildkite-agent bind address
 export SSH_AUTH_SOCK=/var/lib/buildkite-agent/.ssh/ssh-agent.sock
 
 echo "Deploy changes to production"
