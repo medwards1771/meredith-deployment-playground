@@ -12,3 +12,7 @@ export SSH_AUTH_SOCK=/var/lib/buildkite-agent/.ssh/ssh-agent.sock
 echo "Deploy changes to production"
 
 scp -r flaskr ubuntu@ec2-18-117-132-196.us-east-2.compute.amazonaws.com:meredith-deployment-playground/
+
+ssh ubuntu@ec2-18-117-132-196.us-east-2.compute.amazonaws.com << 'EOF'
+sudo systemctl reload flaskr
+EOF

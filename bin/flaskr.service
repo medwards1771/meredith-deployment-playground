@@ -8,6 +8,7 @@ Group=www-data
 WorkingDirectory=/home/ubuntu/meredith-deployment-playground/
 Environment="PATH=/home/ubuntu/meredith-deployment-playground/.venv/bin"
 ExecStart=/home/ubuntu/meredith-deployment-playground/.venv/bin/gunicorn --workers 3 --bind 0.0.0.0:3000 -m 007 flaskr:app
+ExecReload=/bin/kill -s HUP $MAINPID
 
 [Install]
 WantedBy=multi-user.target
