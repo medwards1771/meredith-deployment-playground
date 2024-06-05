@@ -10,7 +10,7 @@ scp bin/flaskr.service ubuntu@ec2-18-117-132-196.us-east-2.compute.amazonaws.com
 
 # connect to meredith-deploy-playground ec2 instance and run commands in EOF block
 ssh ubuntu@ec2-18-117-132-196.us-east-2.compute.amazonaws.com << 'EOF'
-set -euxo pipefail
+set -euo pipefail
 
 echo "The current working directory is: $PWD"
 echo "You are logged in as: $(whoami)"
