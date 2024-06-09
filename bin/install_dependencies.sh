@@ -9,7 +9,7 @@ set -euxo pipefail
 # Set SSH_AUTH_SOCK so that ssh can find the buildkite-agent bind address
 export SSH_AUTH_SOCK=/var/lib/buildkite-agent/.ssh/ssh-agent.sock
 
-scp -r requirements.txt ubuntu@ec2-18-117-132-196.us-east-2.compute.amazonaws.com:meredith-deploy-playground/
+scp -r requirements.txt ubuntu@ec2-18-117-132-196.us-east-2.compute.amazonaws.com:tmp/
 
 # connect to meredith-deploy-playground ec2 instance and run commands in EOF block
 ssh ubuntu@ec2-18-117-132-196.us-east-2.compute.amazonaws.com << 'EOF'
@@ -25,6 +25,9 @@ sudo apt-get -y install python3-pip python3-dev build-essential libssl-dev libff
 
 
 echo "Activate virtual environment"
+rm -rf meredith-deploy-playground
+mkdir meredith-deploy-playground
+mv tmp/requirements.txt meredith-deploy-playground/
 cd meredith-deploy-playground
 python3 -m venv .venv
 # shellcheck source=/dev/null

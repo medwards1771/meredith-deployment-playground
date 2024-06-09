@@ -16,7 +16,6 @@ scp -r flaskr ubuntu@ec2-18-117-132-196.us-east-2.compute.amazonaws.com:tmp/
 ssh ubuntu@ec2-18-117-132-196.us-east-2.compute.amazonaws.com << 'EOF'
 set -euo pipefail
 
-sudo rm -rf meredith-deploy-playground/flaskr
-mv tmp/flaskr meredith-deploy-playground/
+sudo mv tmp/flaskr meredith-deploy-playground/
 sudo systemctl reload flaskr
 EOF
