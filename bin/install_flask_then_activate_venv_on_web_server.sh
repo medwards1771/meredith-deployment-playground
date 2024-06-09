@@ -6,8 +6,6 @@
 # `o pipefail`	Ensure Bash pipelines (for example, cmd | othercmd) return a non-zero status if any of the commands fail
 set -euxo pipefail
 
-scp bin/flaskr.service ubuntu@ec2-18-117-132-196.us-east-2.compute.amazonaws.com:/tmp/flaskr.service
-
 # connect to meredith-deploy-playground ec2 instance and run commands in EOF block
 ssh ubuntu@ec2-18-117-132-196.us-east-2.compute.amazonaws.com << 'EOF'
 set -euo pipefail
@@ -20,30 +18,13 @@ sudo apt-get update
 sudo apt-get -y upgrade
 sudo apt-get -y install python3-pip python3-dev build-essential libssl-dev libffi-dev python3-setuptools python3-venv
 
+# Do I need this? I don't think so
 echo "Activate virtual environment"
-cd meredith-deployment-playground
+cd meredith-deploy-playground
 python3 -m venv .venv
 # shellcheck source=/dev/null
 source .venv/bin/activate
 cd ../
-
-echo "Move systemd unit file to Ubuntu init system"
-sudo mv /tmp/flaskr.service /etc/systemd/system/flaskr.service
-
-echo "stop flaskr, reload daemons, start flaskr, and enable flaskr since flaskr.service file changed on disk"
-sudo systemctl stop flaskr
-sudo systemctl daemon-reload
-sudo systemctl start flaskr
-sudo systemctl enable flaskr
-
-echo "Check flaskr service status"
-sudo systemctl status flaskr
-
-echo "Reload nginx"
-sudo nginx -s reload
-
-echo "Check nginx status"
-sudo systemctl status nginx
 EOF
 
 # I ended up getting this to "work" by following Kenneth Roberts's comment from 10/29/23:
@@ -55,7 +36,7 @@ EOF
 # `sudo chmod 755 /home/ubuntu`
 
 # To get gunicorn to run w/o error from web server, I needed to manually activate virtual environment
-# ssh'd into web server, then from meredith-deployment-playground ran
+# ssh'd into web server, then from meredith-deploy-playground ran
 #    `. .venv/bin/activate`
 #    `.venv/bin/gunicorn --workers 3 --bind unix:flaskr.sock -m 007 flaskr:app
 
@@ -65,4 +46,4 @@ EOF
 # Had to manually update nginx config (https://flask.palletsprojects.com/en/2.3.x/deploying/nginx/) at
 # /etc/nginx/conf.d/default.conf
 
-# Had to manually add dir meredith-deployment-playground in order to nest flaskr dir within that
+# Had to manually add dir meredith-deploy-playground in order to nest flaskr dir within that
