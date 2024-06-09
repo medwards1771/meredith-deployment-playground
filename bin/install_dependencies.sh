@@ -24,12 +24,13 @@ sudo apt-get update
 sudo apt-get -y upgrade
 sudo apt-get -y install python3-pip python3-dev build-essential libssl-dev libffi-dev python3-setuptools python3-venv
 
-
 echo "Activate virtual environment"
 rm -rf meredith-deploy-playground
 mkdir meredith-deploy-playground
 mv tmp/requirements.txt meredith-deploy-playground/
 mv tmp/flaskr meredith-deploy-playground/
+echo "see if meredith-deploy-playground exists"
+ls -lah
 cd meredith-deploy-playground
 python3 -m venv .venv
 # shellcheck source=/dev/null
