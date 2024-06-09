@@ -11,11 +11,8 @@ export SSH_AUTH_SOCK=/var/lib/buildkite-agent/.ssh/ssh-agent.sock
 
 echo "Deploy changes to production"
 
-scp -r flaskr ubuntu@ec2-18-117-132-196.us-east-2.compute.amazonaws.com:tmp/
-
 ssh ubuntu@ec2-18-117-132-196.us-east-2.compute.amazonaws.com << 'EOF'
 set -euo pipefail
 
-sudo mv tmp/flaskr meredith-deploy-playground/
 sudo systemctl try-reload-or-restart flaskr
 EOF

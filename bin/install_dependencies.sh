@@ -10,6 +10,7 @@ set -euxo pipefail
 export SSH_AUTH_SOCK=/var/lib/buildkite-agent/.ssh/ssh-agent.sock
 
 scp -r requirements.txt ubuntu@ec2-18-117-132-196.us-east-2.compute.amazonaws.com:tmp/
+scp -r flaskr ubuntu@ec2-18-117-132-196.us-east-2.compute.amazonaws.com:tmp/
 
 # connect to meredith-deploy-playground ec2 instance and run commands in EOF block
 ssh ubuntu@ec2-18-117-132-196.us-east-2.compute.amazonaws.com << 'EOF'
@@ -28,6 +29,7 @@ echo "Activate virtual environment"
 rm -rf meredith-deploy-playground
 mkdir meredith-deploy-playground
 mv tmp/requirements.txt meredith-deploy-playground/
+mv tmp/flaskr meredith-deploy-playground/
 cd meredith-deploy-playground
 python3 -m venv .venv
 # shellcheck source=/dev/null
