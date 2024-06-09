@@ -14,6 +14,7 @@ echo "Deploy changes to production"
 ssh ubuntu@ec2-18-117-132-196.us-east-2.compute.amazonaws.com << 'EOF'
 set -euo pipefail
 
-sudo systemctl try-reload-or-restart flaskr
+sudo systemctl stop flaskr
+sudo systemctl start flaskr
 # Make this fail if the status is not OK
 EOF
