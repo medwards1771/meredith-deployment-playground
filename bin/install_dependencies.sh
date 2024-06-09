@@ -40,6 +40,7 @@ echo "Install flask app requirements with pip"
 pip install -r requirements.txt
 EOF
 
+# Had to manually create the dir /run/gunicorn in order to generate PID file :scream:
 
 # I ended up getting this to "work" by following Kenneth Roberts's comment from 10/29/23:
 # "I can never get this to work through sock file. I can get it to work like so without sock file:
