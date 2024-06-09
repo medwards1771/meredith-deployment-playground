@@ -15,6 +15,8 @@ echo "You are logged in as: $(whoami)"
 echo "The current working directory is: $PWD"
 
 ssh ubuntu@ec2-18-117-132-196.us-east-2.compute.amazonaws.com << 'EOF'
+set -euo pipefail
+
 cd meredith-deployment-playground
 python3 -m venv .venv
 # shellcheck source=/dev/null
