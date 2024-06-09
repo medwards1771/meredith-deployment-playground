@@ -14,12 +14,12 @@ scp -r requirements.txt ubuntu@ec2-18-117-132-196.us-east-2.compute.amazonaws.co
 echo "You are logged in as: $(whoami)"
 echo "The current working directory is: $PWD"
 
-ssh ubuntu@ec2-18-117-132-196.us-east-2.compute.amazonaws.com << 'EOF'
-set -euo pipefail
+# ssh ubuntu@ec2-18-117-132-196.us-east-2.compute.amazonaws.com << 'EOF'
+# set -euo pipefail
 
-cd meredith-deployment-playground
-python3 -m venv .venv
-# shellcheck source=/dev/null
-source .venv/bin/activate
-python3 -m pip install -r requirements.txt
-EOF
+# cd meredith-deployment-playground
+# python3 -m venv .venv
+# # shellcheck source=/dev/null
+# source .venv/bin/activate
+# python3 -m pip install -r requirements.txt
+# EOF
