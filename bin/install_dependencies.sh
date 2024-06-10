@@ -26,7 +26,6 @@ sudo apt-get -y install python3-pip python3-dev build-essential libssl-dev libff
 echo "Recreate project directory"
 rm -rf meredith-deploy-playground
 mkdir meredith-deploy-playground
-mv tmp/requirements.txt meredith-deploy-playground/
 
 echo "Activate python virtual environment"
 cd meredith-deploy-playground
@@ -34,6 +33,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 
 echo "Install flask app requirements with pip"
+mv ~/tmp/requirements.txt .
 pip install -r requirements.txt
 EOF
 
