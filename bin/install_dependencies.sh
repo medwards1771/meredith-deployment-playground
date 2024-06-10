@@ -10,7 +10,6 @@ set -euxo pipefail
 export SSH_AUTH_SOCK=/var/lib/buildkite-agent/.ssh/ssh-agent.sock
 
 scp -r requirements.txt ubuntu@ec2-18-117-132-196.us-east-2.compute.amazonaws.com:tmp/
-scp -r flaskr ubuntu@ec2-18-117-132-196.us-east-2.compute.amazonaws.com:tmp/
 
 # connect to meredith-deploy-playground ec2 instance and run commands in EOF block
 ssh ubuntu@ec2-18-117-132-196.us-east-2.compute.amazonaws.com << 'EOF'
@@ -24,16 +23,14 @@ sudo apt-get update
 sudo apt-get -y upgrade
 sudo apt-get -y install python3-pip python3-dev build-essential libssl-dev libffi-dev python3-setuptools python3-venv
 
-echo "Activate virtual environment"
+echo "Recreate project directory"
 rm -rf meredith-deploy-playground
 mkdir meredith-deploy-playground
 mv tmp/requirements.txt meredith-deploy-playground/
-mv tmp/flaskr meredith-deploy-playground/
-echo "see if meredith-deploy-playground exists"
-ls -lah
+
+echo "Activate python virtual environment"
 cd meredith-deploy-playground
 python3 -m venv .venv
-# shellcheck source=/dev/null
 source .venv/bin/activate
 
 echo "Install flask app requirements with pip"
