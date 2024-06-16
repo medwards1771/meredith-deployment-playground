@@ -10,15 +10,12 @@ set -euxo pipefail
 export SSH_AUTH_SOCK=/var/lib/buildkite-agent/.ssh/ssh-agent.sock
 
 echo "Deploy changes to production"
-
-scp -r flaskr ubuntu@ec2-18-117-132-196.us-east-2.compute.amazonaws.com:tmp/
-
 ssh ubuntu@ec2-18-117-132-196.us-east-2.compute.amazonaws.com << 'EOF'
-set -euo pipefail
+set -euxo pipefail
 
-mv tmp/flaskr meredith-deploy-playground/
-
-sudo systemctl stop flaskr
-sudo systemctl start flaskr
-# Make this fail if the status is not OK
+docker stop flaskr || echo "flaskr was not running"
+docker rm flaskr || echo "flaskr did not exist"
+docker image rm meredith1771/meredith-deploy-playground:latest || echo "image did not exist"
+docker run -d --name flaskr -p 3000:8000 meredith1771/meredith-deploy-playground:latest
 EOF
+# ssh'd onto instance running nginx, ran `docker login` there to log in to Docker
