@@ -18,7 +18,7 @@ set -euo pipefail
 echo "The current working directory is: $PWD"
 echo "You are logged in as: $(whoami)"
 
-echo "Install flask and its dependencies on web server"
+echo "Install Python, pip, and packages that simplify developing in Python"
 sudo apt-get update
 sudo apt-get -y upgrade
 sudo apt-get -y install python3-pip python3-dev build-essential libssl-dev libffi-dev python3-setuptools python3-venv
@@ -32,7 +32,7 @@ cd meredith-deploy-playground
 python3 -m venv .venv
 source .venv/bin/activate
 
-echo "Install flask app requirements with pip"
+echo "Install Flask and other app requirements with pip"
 mv ~/tmp/requirements.txt .
 pip install -r requirements.txt
 EOF
